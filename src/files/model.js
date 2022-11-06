@@ -50,7 +50,7 @@ class File {
           contentType: file.type,
           metadata: {
             creator: `${data.creator_id}`,
-            users: `${[data.creator_id, "123456"]}`,
+            users: `${[data.users]}`,
           },
         },
       });
@@ -64,14 +64,13 @@ class File {
         blob.setMetadata({
           test: "test",
         });
-        console.log(blob.metadata);
         const database = db();
         const filesDb = database.collection("files");
         const name = "files%2F" + data.creator_id + "%2F" + file.originalname;
         filesDb.add({
           creator_id: data.creator_id,
           date: new Date().toISOString(),
-          users: [data.creator_id, "123456"],
+          users: data.users,
           file_name: file.originalname,
           creator_username: data.username,
           file: format(
