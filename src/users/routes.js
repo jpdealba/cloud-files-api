@@ -1,9 +1,8 @@
-const router = require('express').Router();
+const router = require("express").Router();
+const processFileMiddleware = require("../../middleware/upload");
+const controller = require("./controller");
 
-const controller = require('./controller');
-
-router.get('/', controller.getAll);
-router.get('/:id', controller.getOne);
-
+router.post("/", processFileMiddleware, controller.postOne);
+router.get("/:query", controller.getByQuery);
 
 module.exports = router;

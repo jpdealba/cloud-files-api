@@ -1,15 +1,14 @@
-const model = require('./model');
+const model = require("./model");
 
 class UsersController {
+  getByQuery(req, res) {
+    res.send("llegaste al endpoint de users");
+  }
 
-    getAll(req, res) {
-        res.send('llegaste al endpoint de users')
-    } 
-
-    getOne(req, res) {
-        res.send('llegaste al get one endpoint ' + req.params.id);
-    }
-
+  postOne(req, res) {
+    const User = new model();
+    User.createUser(req.body).then((resp) => res.send(resp));
+  }
 }
 
 module.exports = new UsersController();
