@@ -72,7 +72,7 @@ class File {
           creator_id: data.creator_id,
           date: new Date().toISOString(),
           users: [data.creator_id, "123456"],
-          image_name: file.originalname,
+          file_name: file.originalname,
           file: format(
             `https://firebasestorage.googleapis.com/v0/b/cloudfiles-7a01e.appspot.com/o/${name}?alt=media`
           ),
