@@ -1,17 +1,27 @@
 const processFile = require("../../middleware/upload");
 const { format } = require("util");
+var _ = require("lodash");
 const { db, bk } = require("../database/database");
 class File {
   async findAll(user_id) {
     const database = db();
     const filesDb = database.collection("files");
-    const snapshot = await filesDb
+    const isInvited = await filesDb
       .where("users", "array-contains", user_id)
       .get();
-    if (snapshot.empty) {
-      return [];
-    }
-    return snapshot.docs.map((doc) => doc.data());
+    const isPublic = await filesDb.where("is_public", "==", "true").get();
+
+    const [invitedSnapshot, publicSnapshot] = await Promise.all([
+      isInvited,
+      isPublic,
+    ]);
+
+    const invitedArray = invitedSnapshot.docs;
+    const publicArray = publicSnapshot.docs;
+    const array = _.concat(invitedArray, publicArray);
+
+    const unique = _.uniqWith(array, _.isEqual);
+    return unique.map((doc) => doc.data());
   }
   async findOne(file_id) {
     const database = db();
@@ -50,6 +60,7 @@ class File {
           metadata: {
             creator: `${data.creator_id}`,
             users: `${data.users}`,
+            is_public: `${data.is_public}`,
           },
         },
       });
