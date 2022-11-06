@@ -18,10 +18,12 @@ class File {
 
     const invitedArray = invitedSnapshot.docs;
     const publicArray = publicSnapshot.docs;
-    const array = _.concat(invitedArray, publicArray);
+    const array = invitedArray.concat(publicArray);
 
-    const unique = [...new Set(array.map((item) => item.date))];
-    return unique.map((doc) => doc.data());
+    const newArray = array.map((doc) => doc.data());
+    const unique = [...new Set(newArray.map((item) => item))];
+    console.log(unique);
+    return unique;
   }
   async findOne(file_id) {
     const database = db();
