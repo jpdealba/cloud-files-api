@@ -2,10 +2,16 @@ const express = require("express");
 require("dotenv").config();
 
 const apiRoutes = require("./src/api");
-
+const connect = require("./src/database/connect");
+const { db, bk } = require("./src/database/database");
 const app = express();
-
+const cors = require("cors");
 const port = process.env.PORT || 4000;
+let corsOptions = {
+  origin: "http://localhost:" + port,
+};
+
+app.use(cors(corsOptions));
 
 app.use("/api", apiRoutes);
 
@@ -13,18 +19,14 @@ app.get("", (req, res) => {
   res.send("api works!");
 });
 
-app.listen(port, () => {
-  console.log("app is running in port " + port);
-});
-
-// database.connect().then(client => {
-
-//   const db = client.db('memegenerator');
-//   database.db(db);
-
-//   app.listen(port, () => {
-//     console.log('app is running in port ' + port);
-//   });
-// }).catch(err => {
-//   console.log('Failed to connect to database');
-// });
+connect()
+  .then((data) => {
+    db(data[0]);
+    bk(data[1]);
+    app.listen(port, () => {
+      console.log("app is running in port " + port);
+    });
+  })
+  .catch((err) => {
+    console.log("Failed to connect to database");
+  });
