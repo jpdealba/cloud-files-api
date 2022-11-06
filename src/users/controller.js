@@ -2,7 +2,8 @@ const model = require("./model");
 
 class UsersController {
   getByQuery(req, res) {
-    res.send("llegaste al endpoint de users");
+    const User = new model();
+    User.findByQuery(req.params.query).then((resp) => res.send(resp));
   }
 
   postOne(req, res) {
