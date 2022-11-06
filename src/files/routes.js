@@ -6,7 +6,7 @@ const controller = require("./controller");
 // Obtener todos los archivos en los que el ussuario esta
 router.get("/user/:user_id", controller.getAll);
 
-// Obtener archivo por id
+// Obtener archivo por ids
 router.get("/:file_id", controller.getOne);
 
 // Obtener todos los archivos que creo el usuario
