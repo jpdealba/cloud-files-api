@@ -20,7 +20,7 @@ class File {
     const publicArray = publicSnapshot.docs;
     const array = _.concat(invitedArray, publicArray);
 
-    const unique = _.uniqWith(array, _.isEqual);
+    const unique = [...new Set(array.map((item) => item.date))];
     return unique.map((doc) => doc.data());
   }
   async findOne(file_id) {
