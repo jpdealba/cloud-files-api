@@ -49,7 +49,7 @@ class File {
           contentType: file.type,
           metadata: {
             creator: `${data.creator_id}`,
-            users: `${[data.users]}`,
+            users: `${data.users}`,
           },
         },
       });
@@ -60,9 +60,6 @@ class File {
       });
 
       blobStream.on("finish", async (test) => {
-        blob.setMetadata({
-          test: "test",
-        });
         const database = db();
         const filesDb = database.collection("files");
         const name = "files%2F" + data.creator_id + "%2F" + file.originalname;
