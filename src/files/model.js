@@ -46,6 +46,37 @@ class File {
     return snapshot.docs.map((doc) => doc.data());
   }
 
+  async updateOne(data) {
+    const bucket = bk();
+    const file_name = data.file.replaceAll("%2F", "/").split("/files/");
+    const file = bucket.file("files/" + file_name[1].split("?alt=")[0]);
+    const toChange = {};
+    if (data.users) {
+      toChange.users = data.users;
+    }
+    const meta = await file.getMetadata();
+    await file.setMetadata({
+      metadata: {
+        contentType: meta[0].contentType,
+        creator: `${data.creator_id}`,
+        users: `${data.users}`,
+        is_public: `${data.is_public}`,
+      },
+    });
+    const database = db();
+    const filesDb = database.collection("files");
+    const snapshot = await filesDb
+      .where("file", "==", data.file)
+      .where("creator_id", "==", data.creator_id)
+      .get();
+    if (snapshot.empty) {
+      return [];
+    }
+
+    const id = snapshot.docs[0].id;
+    return await filesDb.doc(id).update(data);
+  }
+
   async createOne(file, data, res) {
     const bucket = bk();
     try {

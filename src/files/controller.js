@@ -29,6 +29,11 @@ class FilesController {
     const body = req.body;
     File.createOne(req.file, body, res);
   }
+  putFile(req, res) {
+    const File = new FilesModel();
+    const body = req.body;
+    File.updateOne(body).then((resp) => res.send(resp));
+  }
 }
 
 module.exports = new FilesController();

@@ -15,4 +15,7 @@ router.get("/created/:user_id", controller.getAllCreated);
 // Subir un archivo nuevo
 router.post("/", processFileMiddleware, controller.postFile);
 
+// Agregar usuarios al documento
+router.put("/", controller.putFile);
+
 module.exports = router;

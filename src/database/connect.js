@@ -10,7 +10,8 @@ function connect() {
         databaseURL: "https://cloudfiles-7a01e.firebaseio.com",
       });
       const storage = new Storage({ keyFilename: "key.json" });
-      // var fil = storage.bucket()
+      // var fil = storage.bucket();
+      // fil.file("test").setMetadata()
       resolve([fs.firestore(), storage.bucket("cloudfiles-7a01e.appspot.com")]);
     } catch (err) {
       console.log(err);
