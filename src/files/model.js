@@ -33,13 +33,12 @@ class File {
     return snapshot.docs.map((doc) => doc.data());
   }
 
-  async createOne(file, data) {
+  async createOne(file, data, res) {
     const bucket = bk();
     try {
       if (!file) {
-        return { message: "Please upload a file!" };
+        return res.send({ message: "Please upload a file!" }).code(401);
       }
-
       const blob = bucket.file(
         "files/" + data.creator_id + "/" + file.originalname
       );
@@ -57,7 +56,7 @@ class File {
 
       blobStream.on("error", (err) => {
         console.log(err);
-        return false;
+        return res.send(false).error(500);
       });
 
       blobStream.on("finish", async (test) => {
@@ -67,12 +66,12 @@ class File {
         const database = db();
         const filesDb = database.collection("files");
         const name = "files%2F" + data.creator_id + "%2F" + file.originalname;
-        filesDb.add({
+        const resp = await filesDb.add({
           creator_id: data.creator_id,
           date: new Date().toISOString(),
           users: data.users,
           file_name: file.originalname,
-          creator_username: data.username,
+          creator_username: data.creator_username,
           file: format(
             `https://firebasestorage.googleapis.com/v0/b/cloudfiles-7a01e.appspot.com/o/${name}?alt=media`
           ),
@@ -81,7 +80,8 @@ class File {
           ),
           is_public: data.is_public,
         });
-        // return true;
+        const newDoc = await this.findOne(resp.id);
+        res.send(newDoc);
       });
       blobStream.end(file.buffer);
     } catch (err) {

@@ -27,9 +27,7 @@ class FilesController {
   postFile(req, res) {
     const File = new FilesModel();
     const body = req.body;
-    File.createOne(req.file, body).then((resp) => {
-      res.send(resp);
-    });
+    File.createOne(req.file, body, res);
   }
 }
 
