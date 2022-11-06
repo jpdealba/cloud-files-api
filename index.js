@@ -7,11 +7,8 @@ const { db, bk } = require("./src/database/database");
 const app = express();
 const cors = require("cors");
 const port = process.env.PORT || 4000;
-let corsOptions = {
-  origin: "http://localhost:" + port,
-};
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use("/api", apiRoutes);
 
