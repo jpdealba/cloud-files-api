@@ -22,7 +22,6 @@ class File {
 
     const newArray = array.map((doc) => doc.data());
     const unique = [...new Set(newArray.map((item) => item))];
-    console.log(unique);
     return unique;
   }
   async findOne(file_id) {
