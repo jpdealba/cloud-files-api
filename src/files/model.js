@@ -21,8 +21,10 @@ class File {
     const array = invitedArray.concat(publicArray);
 
     const newArray = array.map((doc) => doc.data());
-    const unique = [...new Set(newArray.map((item) => item))];
-    return unique;
+    const arrayUniqueByKey = [
+      ...new Map(newArray.map((item) => [item["date"], item])).values(),
+    ];
+    return arrayUniqueByKey;
   }
   async findOne(file_id) {
     const database = db();
