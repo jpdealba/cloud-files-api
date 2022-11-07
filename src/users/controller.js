@@ -13,7 +13,9 @@ class UsersController {
 
   getList(req, res) {
     const User = new model();
-    User.findFromList(req.body).then((resp) => res.send(resp));
+    console.log(req.body);
+    res.sned(req.body);
+    // User.findFromList(req.body).then((resp) => res.send(resp));
   }
 }
 
