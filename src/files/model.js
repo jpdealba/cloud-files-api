@@ -59,6 +59,7 @@ class File {
       .where("creator_id", "==", data.creator_id)
       .where("date", "==", data.date)
       .where("file_name", "==", data.file_name)
+      .where("creator_id", "==", data.creator_id)
       .get();
 
     // if (snapshot.empty) {
@@ -71,7 +72,7 @@ class File {
     // const file_name = "files/" + name[1].split("?alt=")[0];
     // const file = bucket.file(file_name);
     // file.delete();
-    return [data.date, snapshot.empty];
+    return [data.creator_id, snapshot.empty];
     // return "Successfull";
   }
 
