@@ -10,6 +10,11 @@ class UsersController {
     const User = new model();
     User.createUser(req.body).then((resp) => res.send(resp));
   }
+
+  getList(req, res) {
+    const User = new model();
+    User.findFromList(req.body).then((resp) => res.send(resp));
+  }
 }
 
 module.exports = new UsersController();

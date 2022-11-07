@@ -7,7 +7,7 @@ const { db, bk } = require("./src/database/database");
 const app = express();
 const bp = require("body-parser");
 const cors = require("cors");
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 3000;
 const corsOptions = {
   origin: "*",
   credentials: true, //access-control-allow-credentials:true
