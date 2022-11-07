@@ -55,10 +55,7 @@ class File {
     //   .where("file", "==", data.file)
     //   .where("file_name", "==", data.file_name)
     //   .get();
-    const snapshot = await filesDb
-      .where("file", "==", data.file)
-      .where("creator_id", "==", data.creator_id)
-      .get();
+    const snapshot = await filesDb.where("file", "==", data.file).get();
 
     // if (snapshot.empty) {
     //   return [];
