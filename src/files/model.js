@@ -53,6 +53,7 @@ class File {
       .where("creator_id", "==", data.creator_id)
       .where("date", "==", data.date)
       .where("file_name", "==", data.file_name)
+      .where("preview_url", "==", data.preview_url)
       .get();
 
     if (snapshot.empty) {
