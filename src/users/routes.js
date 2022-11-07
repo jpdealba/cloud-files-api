@@ -3,6 +3,6 @@ const controller = require("./controller");
 
 router.post("/", controller.postOne);
 router.get("/:query", controller.getByQuery);
-router.get("/", controller.getList);
+router.post("/list", controller.getList);
 
 module.exports = router;
