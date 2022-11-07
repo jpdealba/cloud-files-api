@@ -37,10 +37,7 @@ class FilesController {
   deleteFile(req, res) {
     const File = new FilesModel();
     const body = req.body;
-    console.log(body);
-    console.log(req);
-    res.send(body);
-    // File.deleteOne(body).then((resp) => res.send(resp));
+    File.deleteOne(body).then((resp) => res.send(resp));
   }
 }
 
