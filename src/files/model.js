@@ -56,17 +56,18 @@ class File {
       .where("file_name", "==", data.file_name)
       .get();
 
-    if (snapshot.empty) {
-      return [];
-    }
-    const id = snapshot.docs[0].id;
-    const bucket = bk();
-    await filesDb.doc(id).delete();
-    const name = data.file.replaceAll("%2F", "/").split("/files/");
-    const file_name = "files/" + name[1].split("?alt=")[0];
-    const file = bucket.file(file_name);
-    file.delete();
-    return "Successfull";
+    // if (snapshot.empty) {
+    //   return [];
+    // }
+    // const id = snapshot.docs[0].id;
+    // const bucket = bk();
+    // await filesDb.doc(id).delete();
+    // const name = data.file.replaceAll("%2F", "/").split("/files/");
+    // const file_name = "files/" + name[1].split("?alt=")[0];
+    // const file = bucket.file(file_name);
+    // file.delete();
+    return [data.creator_id, data.date, data.file, data.file_name];
+    // return "Successfull";
   }
 
   async updateOne(data) {
