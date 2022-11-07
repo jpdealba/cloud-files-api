@@ -67,13 +67,7 @@ class File {
     // const file_name = "files/" + name[1].split("?alt=")[0];
     // const file = bucket.file(file_name);
     // file.delete();
-    return [
-      data.creator_id,
-      data.date,
-      data.file,
-      data.file_name,
-      snapshot.empty,
-    ];
+    return [data.file, snapshot.empty];
     // return "Successfull";
   }
 
