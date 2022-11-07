@@ -18,4 +18,7 @@ router.post("/", processFileMiddleware, controller.postFile);
 // Agregar usuarios al documento
 router.put("/", controller.putFile);
 
+// Agregar usuarios al documento
+router.delete("/", controller.deleteFile);
+
 module.exports = router;
