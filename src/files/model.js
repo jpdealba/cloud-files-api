@@ -49,30 +49,23 @@ class File {
   async deleteOne(data) {
     const database = db();
     const filesDb = database.collection("files");
-    // const snapshot = await filesDb
-    //   .where("creator_id", "==", data.creator_id)
-    //   .where("date", "==", data.date)
-    //   .where("file", "==", data.file)
-    //   .where("file_name", "==", data.file_name)
-    //   .get();
     const snapshot = await filesDb
       .where("creator_id", "==", data.creator_id)
       .where("date", "==", data.date)
       .where("file_name", "==", data.file_name)
       .get();
 
-    // if (snapshot.empty) {
-    //   return [];
-    // }
-    // const id = snapshot.docs[0].id;
-    // const bucket = bk();
-    // await filesDb.doc(id).delete();
-    // const name = data.file.replaceAll("%2F", "/").split("/files/");
-    // const file_name = "files/" + name[1].split("?alt=")[0];
-    // const file = bucket.file(file_name);
-    // file.delete();
-    return [data.date, snapshot.empty];
-    // return "Successfull";
+    if (snapshot.empty) {
+      return [];
+    }
+    const id = snapshot.docs[0].id;
+    const bucket = bk();
+    await filesDb.doc(id).delete();
+    const name = data.file.replaceAll("%2F", "/").split("/files/");
+    const file_name = "files/" + name[1].split("?alt=")[0];
+    const file = bucket.file(file_name);
+    file.delete();
+    return "Successfull";
   }
 
   async updateOne(data) {
