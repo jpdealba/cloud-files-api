@@ -49,11 +49,15 @@ class File {
   async deleteOne(data) {
     const database = db();
     const filesDb = database.collection("files");
+    // const snapshot = await filesDb
+    //   .where("creator_id", "==", data.creator_id)
+    //   .where("date", "==", data.date)
+    //   .where("file", "==", data.file)
+    //   .where("file_name", "==", data.file_name)
+    //   .get();
     const snapshot = await filesDb
-      .where("creator_id", "==", data.creator_id)
-      .where("date", "==", data.date)
       .where("file", "==", data.file)
-      .where("file_name", "==", data.file_name)
+      .where("creator_id", "==", data.creator_id)
       .get();
 
     // if (snapshot.empty) {
