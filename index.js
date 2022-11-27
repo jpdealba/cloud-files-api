@@ -25,12 +25,18 @@ app.get("", (req, res) => {
 
 connect()
   .then((data) => {
-    db(data[0]);
+    db(data);
     bk(data[1]);
-    app.listen(port, () => {
-      console.log("app is running in port " + port);
-    });
-  })
-  .catch((err) => {
-    console.log("Failed to connect to database");
+
+    try {
+      app.listen(port, () => {
+        console.log("app is running in port " + port);
+      });
+    } catch (error) {
+      console.error(error);
+    }
+
+
+  }).catch((err) => {
+    console.error(err);
   });
